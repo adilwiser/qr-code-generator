@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1d5d5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #bb2121;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 1.1em;
+            color: #555;
+        }
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        button {
+            background-color: #3d8ee6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #bb0000;
+        }
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .error {
+            color: rgb(122, 69, 69);
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QR Code Generator</h1>
+        <form action="/generate" method="post">
+            <label for="data">Enter data:</label>
+            <input type="text" id="data" name="data" required>
+            <button type="submit">Generate QR Code</button>
+        </form>
+
+        {% if request.method == 'POST' %}
+            <h2>Your QR Code:</h2>
+            <img src="/static/qrcodes/qr_code.png" alt="QR Code">
+        {% endif %}
+        
+        {% if request.method == 'POST' and not request.form.get('data') %}
+            <p class="error">No data provided</p>
+        {% endif %}
+    </div>
+</body>
+</html>
